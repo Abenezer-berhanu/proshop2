@@ -1,0 +1,16 @@
+{
+  "name": "proshop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node backend/server.js",
+    "backend": "nodemon backend/server.js"
+  },
+  "author": "abenezer",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
