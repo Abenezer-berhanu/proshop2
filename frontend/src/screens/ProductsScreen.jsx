@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import Rating from "../components/Rating";
-import axios from 'axios'
+import axios from "axios";
 import {
   Card,
   Row,
@@ -10,20 +10,22 @@ import {
   Button,
   ListGroupItem,
 } from "react-bootstrap";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 const ProductsScreen = () => {
-  const [product, setProducts] = useState([])
+  const [product, setProducts] = useState([]);
   const { id } = useParams();
   useEffect(() => {
-    const getProducts = async() =>{
-      const res = await axios(`/api/product/${id}`)
-      setProducts(res.data.product)
-    }
-    getProducts()
-  },[])
+    const getProducts = async () => {
+      const res = await axios(`/api/product/${id}`);
+      setProducts(res.data.product);
+    };
+    getProducts();
+  }, []);
   return (
     <div>
-      <Link className="btn btn-light my-3" to='/'>Go Back</Link>
+      <Link className="btn btn-light my-3" to="/">
+        Go Back
+      </Link>
       <Row>
         <Col md={5}>
           <Image src={product.image} alt={product.name} fluid />
@@ -49,14 +51,18 @@ const ProductsScreen = () => {
               <ListGroupItem>
                 <Row>
                   <Col className="text-center">Price:</Col>
-                  <Col className="text-center"><strong>${product.price}</strong></Col>
+                  <Col className="text-center">
+                    <strong>${product.price}</strong>
+                  </Col>
                 </Row>
               </ListGroupItem>
               <ListGroupItem>
                 <Row>
                   <Col className="text-center">Status:</Col>
                   <Col className="text-center">
-                    <strong>{product.countInStock > 0 ? "In Stock" : "Out of Stock"}</strong>
+                    <strong>
+                      {product.countInStock > 0 ? "In Stock" : "Out of Stock"}
+                    </strong>
                   </Col>
                 </Row>
               </ListGroupItem>
