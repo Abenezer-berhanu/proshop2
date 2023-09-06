@@ -21,7 +21,7 @@ export default function Header() {
                   {
                   cartItems.length > 0 && (
                     <Badge pill bg="danger" style={{marginLeft: '5px'}}>
-                      {cartItems.length || 0}
+                      {cartItems.length > 9 ? "9+" : cartItems.length > 0 ? cartItems.length : 0}
                     </Badge>
                   )
                 }
