@@ -1,8 +1,8 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import User from "../model/userModel.js";
-import jwt from "jsonwebtoken";
 import generateToken from "../utils/generateToken.js";
 
+//login
 const userSignin = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
@@ -10,7 +10,7 @@ const userSignin = asyncHandler(async (req, res) => {
     //create token and set it to cookie
 
     generateToken(res, user._id);
-    res.json({
+    res.status(200).json({
       _id: user._id,
       email: user.email,
       name: user.name,
@@ -21,6 +21,8 @@ const userSignin = asyncHandler(async (req, res) => {
     throw new Error("Invalid password or Email");
   }
 });
+
+//register
 
 const userSignup = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
@@ -53,6 +55,7 @@ const userSignup = asyncHandler(async (req, res) => {
 });
 
 //private
+//logout
 const logoutUser = asyncHandler(async (req, res) => {
   res.cookie("jwt", "", {
     httpOnly: true,
@@ -62,8 +65,21 @@ const logoutUser = asyncHandler(async (req, res) => {
 });
 
 //private
+//logout
 const getUserProfile = asyncHandler(async (req, res) => {
-  res.send("my profile");
+  const user = await User.findById(req.user._id)
+
+  if(user){
+    res.status(200).json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.isAdmin
+    })
+  }else{
+    res.status(404)
+    throw new Error('User not found')
+  }
 });
 
 //private
