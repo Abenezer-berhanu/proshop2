@@ -1,30 +1,32 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import User from "../model/userModel.js";
-import jwt from 'jsonwebtoken'
+import jwt from "jsonwebtoken";
 
 const userSignin = asyncHandler(async (req, res) => {
-    const {email, password} = req.body
-    const user = await User.findOne({email})
-    if(user && (await user.matchPassword(password))){
-        const token = jwt.sign({userId: user._id}, process.env.JWT_SECRET,{ expiresIn: '30d'})
+  const { email, password } = req.body;
+  const user = await User.findOne({ email });
+  if (user && (await user.matchPassword(password))) {
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "30d",
+    });
 
-        //SET token as HTTPS only cookie
-        res.cookie('jwt', token, {
-            httpOnly:true,
-            secure: process.env.NODE_ENV !== 'development',
-            sameSites: 'strict',
-            maxAge: 30 * 24 * 60 * 60 * 1000 // 30days
-        })
-        res.json({
-            _id: user._id,
-            email: user.email,
-            name: user.name,
-            isAdmin: user.isAdmin,
-        })
-    }else{
-        res.status(401);
-        throw new Error('Invalid password or Email')
-    }
+    //SET token as HTTPS only cookie
+    res.cookie("jwt", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== "development",
+      sameSites: "strict",
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30days
+    });
+    res.json({
+      _id: user._id,
+      email: user.email,
+      name: user.name,
+      isAdmin: user.isAdmin,
+    });
+  } else {
+    res.status(401);
+    throw new Error("Invalid password or Email");
+  }
 });
 
 const userSignup = asyncHandler(async (req, res) => {
@@ -33,7 +35,11 @@ const userSignup = asyncHandler(async (req, res) => {
 
 //private
 const logoutUser = asyncHandler(async (req, res) => {
-  res.send("auth logout");
+    res.cookie('jwt', '', {
+        httpOnly: true,
+        expires: new Date(0)
+    })
+    res.status(200).json({message : 'User logged out successfully'})
 });
 
 //private
