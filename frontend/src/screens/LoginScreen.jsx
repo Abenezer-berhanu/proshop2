@@ -34,6 +34,7 @@ function LoginScreen() {
     try {
       const res = await login({ email, password }).unwrap();
       dispatch(setCredntials({...res}));
+      toast.success('Logged in successfully')
       navigate(redirect);
     } catch (error) {
     console.log(error)
