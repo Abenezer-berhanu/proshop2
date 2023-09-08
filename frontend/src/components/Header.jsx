@@ -6,20 +6,22 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useLogoutMutation } from "../slices/userSliceApi";
 import { clearCredentials } from "../slices/authSlice";
+import { toast } from "react-toastify";
 export default function Header() {
   const { cartItems } = useSelector((state) => state.cart);
   const { userInfo } = useSelector((state) => state.auth);
-  const [logoutMutation] = useLogoutMutation()
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const [logoutMutation] = useLogoutMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const logoutHandler = async() => {
+  const logoutHandler = async () => {
     try {
-      await logoutMutation().unwrap()
-      dispatch(clearCredentials())
-      navigate('/login')
+      await logoutMutation().unwrap();
+      dispatch(clearCredentials());
+      navigate("/login");
+      toast.success("Logged out successfully");
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
