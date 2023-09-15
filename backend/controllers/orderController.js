@@ -65,9 +65,7 @@ const updateOrderToPaid = asyncHnalder(async (req, res) => {
       update_time: req.body.update_time,
       email_address: req.body.payer.email_address
     }
-
     const updatedOrder = await order.save()
-
     res.status(200).json(updatedOrder)
   }else {
     res.status(404)
@@ -76,11 +74,24 @@ const updateOrderToPaid = asyncHnalder(async (req, res) => {
 });
 
 const updateOrderToDelivered = asyncHnalder(async (req, res) => {
-  res.send("update order to delivered");
+  const order = await Order.findById(req.params.id)
+
+  if(order){
+    order.isDelivered = true;
+    order.deliveredAt = Date.now()
+
+    const updatedOrder = await order.save()
+
+    res.status(200).json(updatedOrder)
+  }else{
+    res.status(404)
+    throw new Error('Order not found')
+  }
 });
 
 const getOrders = asyncHnalder(async (req, res) => {
-  res.send("all orders");
+  const orders = await Order.find({}).populate('user', 'id name')
+  res.status(200).json(orders)
 });
 
 export {

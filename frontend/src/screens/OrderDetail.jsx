@@ -1,16 +1,36 @@
 import { Col, ListGroup, Row, Image, Card, Button } from "react-bootstrap";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
-import { useGetOrderDetailQuery } from "../slices/orderApiSlice";
+import {
+  useGetOrderDetailQuery,
+  useDeliverOrderMutation,
+} from "../slices/orderApiSlice";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 export default function OrderDetail() {
   const { id: orderId } = useParams();
-  const { data: order, isLoading, error } = useGetOrderDetailQuery(orderId);
+  const { data: order, isLoading, error, refetch } = useGetOrderDetailQuery(orderId);
+  const { userInfo } = useSelector((state) => state.auth);
+
+  const [
+    deliverOrder,
+    { isLoading: isLoadingDelivery, error: errorDelivery },
+  ] = useDeliverOrderMutation();
 
   const handlePay = () => {
     toast.warn("payment method is on maintenance");
+  };
+
+  const handleOrderDeliver = async () => {
+    try {
+      await deliverOrder(orderId);
+      refetch();
+      toast.success("Order Delivered");
+    } catch (error) {
+      toast.error(errorDelivery?.data?.message || errorDelivery.message || errorDelivery.error);
+    }
   };
 
   return isLoading ? (
@@ -106,13 +126,20 @@ export default function OrderDetail() {
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
-                <Button
-                  variant="primary"
-                  disabled={order.paymentMethod === "PayPal" ? false : true}
-                  onClick={handlePay}
-                >
-                  Pay
-                </Button>
+                {userInfo && !userInfo.isAdmin ? (
+                  <Button
+                    variant="primary"
+                    disabled={order.paymentMethod === "PayPal" ? false : true}
+                    onClick={handlePay}
+                  >
+                    Pay
+                  </Button>
+                ) : (
+                  <>
+                  {isLoadingDelivery && <Loader />}
+                  <Button onClick={handleOrderDeliver}>Mark As Deliverd</Button>
+                  </>
+                )}
                 <p>
                   <small>payment only allowed with CBE Mobile Banking</small>
                 </p>
