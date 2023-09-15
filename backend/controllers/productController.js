@@ -22,6 +22,24 @@ export const createProduct = asyncHandler(async (req, res) => {
   res.status(201).json(createProduct);
 });
 
+export const updateProduct = asyncHandler(async (req, res) => {
+  const { name, price, image, brand, category, countInStock, description } =
+    req.body;
+  const product = await Product.findById(req.params.id);
+  if (product) {
+    product.name = name;
+    product.price = price;
+    product.image = image;
+    product.brand = brand;
+    product.category = category;
+    product.countInStock = countInStock;
+    product.description = description;
+
+    const updatedProduct = await product.save();
+    res.status(200).json(createProduct);
+  }
+});
+
 export const getProductById = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const product = await Product.findById(id);

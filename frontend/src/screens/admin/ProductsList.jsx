@@ -1,29 +1,33 @@
 import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button, Col, Row } from "react-bootstrap";
 import { FiTrash, FiEdit } from "react-icons/fi";
-import {toast} from 'react-toastify'
+import { toast } from "react-toastify";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
-import { useGetProductsQuery , useCreateProductMutation} from "../../slices/productsSlice";
+import {
+  useGetProductsQuery,
+  useCreateProductMutation,
+} from "../../slices/productsSlice";
 
 function ProductsList() {
   const { data: products, isLoading, error, refetch } = useGetProductsQuery();
-  const [createProduct, {isLoading: createLoading, error: createError}] = useCreateProductMutation()
+  const [createProduct, { isLoading: createLoading, error: createError }] =
+    useCreateProductMutation();
 
   const handleDeleteProduct = (productId) => {
     console.log(`delete${productId}`);
   };
 
-  const createProductHandler = async() => {
-    if(window.confirm('are you sure you want to create product')){
+  const createProductHandler = async () => {
+    if (window.confirm("are you sure you want to create product")) {
       try {
-        await createProduct()
-        refetch()
+        await createProduct();
+        refetch();
       } catch (error) {
-        toast.error(createError?.data?.message || createError?.error)
+        toast.error(createError?.data?.message || createError?.error);
       }
     }
-  }
+  };
 
   return (
     <>
