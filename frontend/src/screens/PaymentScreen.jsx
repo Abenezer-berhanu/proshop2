@@ -36,7 +36,7 @@ function PaymentScreen() {
             <Form.Check
               type="radio"
               className="my-2"
-              label="PayPal or Mobile Banking"
+              label="Mobile Banking"
               id="PayPal"
               name="paymentMethod"
               checked

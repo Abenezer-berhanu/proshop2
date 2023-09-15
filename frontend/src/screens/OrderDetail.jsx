@@ -1,17 +1,18 @@
-import { Col, ListGroup, Row, Image, Card } from "react-bootstrap";
+import { Col, ListGroup, Row, Image, Card, Button } from "react-bootstrap";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { useGetOrderDetailQuery } from "../slices/orderApiSlice";
 import { Link, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function OrderDetail() {
   const { id: orderId } = useParams();
-  const {
-    data: order,
-    isLoading,
-    error,
-    refetch,
-  } = useGetOrderDetailQuery(orderId);
+  const { data: order, isLoading, error } = useGetOrderDetailQuery(orderId);
+
+  const handlePay = () => {
+    toast.warn("payment method is on maintenance");
+  };
+
   return isLoading ? (
     <Loader />
   ) : error ? (
@@ -72,39 +73,52 @@ export default function OrderDetail() {
                       <Link to={`/product/${item.product}`}>{item.name}</Link>
                     </Col>
                     <Col md={4}>
-                        {item.qty} X ${item.price} = ${item.qty * item.price}
+                      {item.qty} X ${item.price} = ${item.qty * item.price}
                     </Col>
                   </Row>
-
                 </ListGroup.Item>
               ))}
             </ListGroup.Item>
           </ListGroup>
         </Col>
         <Col md={4}>
-            <Card>
-                <ListGroup>
-                    <ListGroup.Item><h2>Order Summary</h2></ListGroup.Item>
-                    <ListGroup.Item>
-                        <Row>
-                            <Col>Items:</Col>
-                            <Col>${order.itemsPrice}</Col>
-                        </Row>
-                        <Row>
-                            <Col>Shipping:</Col>
-                            <Col>${order.shippingPrice}</Col>
-                        </Row>
-                        <Row>
-                            <Col>Tax:</Col>
-                            <Col>${order.taxPrice}</Col>
-                        </Row>
-                        <Row>
-                            <Col>Total:</Col>
-                            <Col>${order.totalPrice}</Col>
-                        </Row>
-                    </ListGroup.Item>
-                </ListGroup>
-            </Card>
+          <Card>
+            <ListGroup>
+              <ListGroup.Item>
+                <h2>Order Summary</h2>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Row>
+                  <Col>Items:</Col>
+                  <Col>${order.itemsPrice}</Col>
+                </Row>
+                <Row>
+                  <Col>Shipping:</Col>
+                  <Col>${order.shippingPrice}</Col>
+                </Row>
+                <Row>
+                  <Col>Tax:</Col>
+                  <Col>${order.taxPrice}</Col>
+                </Row>
+                <Row>
+                  <Col>Total:</Col>
+                  <Col>${order.totalPrice}</Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Button
+                  variant="primary"
+                  disabled={order.paymentMethod === "PayPal" ? false : true}
+                  onClick={handlePay}
+                >
+                  Pay
+                </Button>
+                <p>
+                  <small>payment only allowed with CBE Mobile Banking</small>
+                </p>
+              </ListGroup.Item>
+            </ListGroup>
+          </Card>
         </Col>
       </Row>
     </>

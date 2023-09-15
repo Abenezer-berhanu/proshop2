@@ -4,6 +4,7 @@ import store from "./store";
 import { Provider } from "react-redux";
 import "./assets/styles/index.css";
 import "./assets/styles/bootstrap.custom.css";
+// import 'bootstrap/dist/css/bootstrap.css'
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -11,7 +12,6 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import App from "./App";
-// import "bootstrap/dist/css/bootstrap.min.css"
 import reportWebVitals from "./reportWebVitals";
 import HomeScreen from "./screens/HomeScreen";
 import ProductsScreen from "./screens/ProductsScreen";
@@ -23,6 +23,11 @@ import PrivateRoutes from "./components/PrivateRoutes";
 import PaymentScreen from "./screens/PaymentScreen";
 import OrderScreen from "./screens/OrderScreen";
 import OrderDetail from "./screens/OrderDetail";
+import UserProfile from "./screens/UserProfile"
+// admin //////////////////
+
+import AdminRoutes from "./components/AdminRoute";
+import OrderList from "./screens/admin/OrderList";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -37,6 +42,10 @@ const router = createBrowserRouter(
         <Route path="/payment" element={<PaymentScreen />} />
         <Route path="/orderproduct" element={<OrderScreen />} />
         <Route path="/orders/:id" element={<OrderDetail />} />
+        <Route path="/profile" element={<UserProfile/>}/>
+      </Route>
+      <Route path="" element={<AdminRoutes />}>
+        <Route path="/admin/orderList" element={<OrderList />} />
       </Route>
     </Route>
   )

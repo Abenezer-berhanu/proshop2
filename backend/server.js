@@ -16,6 +16,7 @@ app.use(cookieParser())
 app.use('/api/products', productRouter)
 app.use('/api/users', userRoutes)
 app.use('/api/orders', orderRoutes)
+app.use('/api/config/paypal', (req, res) => res.send({clientId: process.env.PAYPAL_CLIENT_ID}))
 
 connectDB();
 
