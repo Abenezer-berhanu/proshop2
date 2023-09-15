@@ -27,7 +27,6 @@ function ShippingScreen() {
   return (
     <FormContainer>
       <CheckoutSteps step1 step2/>
-
       <h1>Shipping</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="my-2" controlId="postalCode">
@@ -51,7 +50,6 @@ function ShippingScreen() {
             onChange={(e) => setCity(e.target.value)}
           ></Form.Control>
         </Form.Group>
-
         <Form.Group className="my-2" controlId="postalCode">
           <Form.Label>Postal code</Form.Label>
           <Form.Control
