@@ -1,6 +1,5 @@
 import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button } from "react-bootstrap";
-import { useSelector, useDispatch } from "react-redux";
 import { FiClock } from "react-icons/fi";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";

@@ -6,7 +6,6 @@ import { setOrder } from "../slices/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useCreateOrderMutation } from "../slices/orderApiSlice";
 import Message from "../components/Message";
-import { toast } from "react-toastify";
 import Loader from "../components/Loader";
 
 const OrderScreen = () => {
