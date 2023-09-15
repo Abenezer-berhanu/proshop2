@@ -23,11 +23,12 @@ import PrivateRoutes from "./components/PrivateRoutes";
 import PaymentScreen from "./screens/PaymentScreen";
 import OrderScreen from "./screens/OrderScreen";
 import OrderDetail from "./screens/OrderDetail";
-import UserProfile from "./screens/UserProfile"
+import UserProfile from "./screens/UserProfile";
 // admin //////////////////
 
 import AdminRoutes from "./components/AdminRoute";
 import OrderList from "./screens/admin/OrderList";
+import ProductsList from "./screens/admin/ProductsList";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -42,10 +43,11 @@ const router = createBrowserRouter(
         <Route path="/payment" element={<PaymentScreen />} />
         <Route path="/orderproduct" element={<OrderScreen />} />
         <Route path="/orders/:id" element={<OrderDetail />} />
-        <Route path="/profile" element={<UserProfile/>}/>
+        <Route path="/profile" element={<UserProfile />} />
       </Route>
       <Route path="" element={<AdminRoutes />}>
         <Route path="/admin/orderList" element={<OrderList />} />
+        <Route path="/admin/productList" element={<ProductsList />} />
       </Route>
     </Route>
   )
