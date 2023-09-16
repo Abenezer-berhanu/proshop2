@@ -110,22 +110,55 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
 //private
 const getUsers = asyncHandler(async (req, res) => {
-  res.send("all users");
+  const users = await User.find({}).select("-password")
+  res.status(200).json(users)
 });
 
 //private
 const deleteUser = asyncHandler(async (req, res) => {
-  res.send("delete user");
+  const user = await User.findById(req.params.id)
+  if(user){
+    if(user.isAdmin){
+      res.status(400).json({message : 'Deleting Admin Is Not Accessible'})
+    }
+    await User.deleteOne({ _id : user._id})
+    res.status(200).json({message : 'User deleted successfully'})
+  }else{
+    res.status(404)
+    throw new Error('Not found')
+  }
 });
 
 //private
 const getUserById = asyncHandler(async (req, res) => {
-  res.send("get user by id");
+  const user = await User.findById(req.params.id).select("-password")
+  if(user){
+    res.status(200).json(user)
+  }else{
+    res.status(404)
+    throw new Error('Not found')
+  }
 });
 
 //private
 const updateUser = asyncHandler(async (req, res) => {
-  res.send("user update profile admin");
+  const user = await User.findById(req.params.id)
+  if(user){
+    user.name = req.body.name || user.name
+    user.email = req.body.email || user.email
+    user.isAdmin = Boolean(req.body.isAdmin)
+
+    const updatedUser = await user.save()
+    res.status(200).json({
+      _id : updateUser._id,
+      name: updateUser.name,
+      email: updateUser.email,
+      isAdmin: updatedUser.isAdmin
+    })
+  }else{
+    res.status(404)
+    throw new Error('Not found')
+  }
 });
 
 export {
