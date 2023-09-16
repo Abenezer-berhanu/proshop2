@@ -4,7 +4,7 @@ import Loader from "../../components/Loader";
 import FormContainer from "../../components/FormContainer";
 import { Form, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
-import Meassage from "../../components/Message";
+import Message from "../../components/Message";
 import {
   useUpdateProductMutation,
   useGetProductDetailQuery,
@@ -27,10 +27,10 @@ export default function ProductEditScreen() {
     isLoading,
     error,
   } = useGetProductDetailQuery(productId);
-  const [updateProduct, { isLoading: loadingUpdate, error: errorUpdate }] =
+  const [updateProduct, { isLoading: loadingUpdate}] =
     useUpdateProductMutation();
 
-  const [uploadImage, { isLoading: loadingUpload, error: errorUpload }] =
+  const [uploadImage, ] =
     useUploadImageMutation();
 
   useEffect(() => {
@@ -43,7 +43,7 @@ export default function ProductEditScreen() {
       setCountInStock(product.product.countInStock);
       setDescription(product.product.description);
     }
-  }, [isLoading]);
+  }, [product]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -89,7 +89,7 @@ export default function ProductEditScreen() {
         {isLoading ? (
           <Loader />
         ) : error ? (
-          <Meassage>{error}</Meassage>
+          <Message>{error}</Message>
         ) : (
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="name">
