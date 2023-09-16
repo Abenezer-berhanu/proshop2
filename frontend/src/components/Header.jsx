@@ -5,6 +5,7 @@ import {
   Container,
   Badge,
   NavDropdown,
+  Image
 } from "react-bootstrap";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
