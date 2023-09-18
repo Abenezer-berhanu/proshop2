@@ -4,10 +4,15 @@ import Product from "../model/productModel.js";
 import path from "path";
 
 export const getAllProducts = asyncHandler(async (req, res) => {
-  const pageNumber = 2;
+  const pageNumber = 1;
   const page = Number(req.query.pageNumber) || 1;
-  const count = await Product.countDocuments();
-  const products = await Product.find({})
+
+  const keyword = req.query.keyword
+    ? { name: { $regex: req.query.keyword, $options: "i" } }
+    : {};
+
+  const count = await Product.countDocuments({ ...keyword });
+  const products = await Product.find({ ...keyword })
     .limit(pageNumber)
     .skip(pageNumber * (page - 1));
   res
