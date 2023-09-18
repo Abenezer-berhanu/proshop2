@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Navbar,
-  Nav,
-  Container,
-  Badge,
-  NavDropdown,
-} from "react-bootstrap";
+import { Navbar, Nav, Container, Badge, NavDropdown } from "react-bootstrap";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
 import { useNavigate } from "react-router-dom";
@@ -27,7 +21,7 @@ export default function Header() {
       navigate("/login");
       toast.success("Logged out successfully");
     } catch (error) {
-      console.log(error);
+      toast.error(error?.data?.message || error.message || error.error);
     }
   };
 

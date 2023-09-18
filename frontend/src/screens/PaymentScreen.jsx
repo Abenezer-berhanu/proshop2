@@ -7,7 +7,7 @@ import CheckoutSteps from "../components/CheckoutSteps";
 import { useEffect, useState } from "react";
 
 function PaymentScreen() {
-  const [paymentMethod, setPaymentMethod] = useState("PayPal");
+  const [paymentMethod, setPaymentMethod] = useState("CBE");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -39,6 +39,7 @@ function PaymentScreen() {
               label="Mobile Banking"
               id="PayPal"
               name="paymentMethod"
+              disabled
               checked
               onChange={(e) => setPaymentMethod(e.target.value)}
             ></Form.Check>
