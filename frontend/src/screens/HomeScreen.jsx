@@ -3,12 +3,15 @@ import Product from "../components/Product";
 import Loader from "../components/Loader";
 import { useGetProductsQuery } from "../slices/productsSlice";
 import Message from "../components/Message";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Paginate from "../components/Paginate";
 
 const HomeScreen = () => {
-  const { pageNumber } = useParams();
-  const { data, isLoading, error } = useGetProductsQuery({ pageNumber });
+  const { pageNumber, keyword } = useParams();
+  const { data, isLoading, error } = useGetProductsQuery({
+    keyword,
+    pageNumber,
+  });
 
   return (
     <>
@@ -21,6 +24,9 @@ const HomeScreen = () => {
       ) : (
         <>
           <h1>Latest Products</h1>
+          <Link className="btn btn-light mb-4" to="/">
+            Back
+          </Link>
           <Row>
             {data.products.map((product) => {
               return (
@@ -30,7 +36,7 @@ const HomeScreen = () => {
               );
             })}
           </Row>
-          <Paginate page={data.page} pages={data.pages} />
+          <Paginate page={data.page} pages={data.pages} keyword={keyword} />
         </>
       )}
     </>
