@@ -1,6 +1,7 @@
 import { Col, ListGroup, Row, Image, Card, Button } from "react-bootstrap";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import Meta from '../components/Meta'
 import {
   useGetOrderDetailQuery,
   useDeliverOrderMutation,
@@ -46,6 +47,7 @@ export default function OrderDetail() {
     <Message variant="danger">{error}</Message>
   ) : (
     <>
+    <Meta title="Order-detail-information"/>
       <h2>Order: {order._id}</h2>
       <Row>
         <Col md={8}>

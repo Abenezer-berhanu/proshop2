@@ -6,6 +6,7 @@ import Message from "../components/Message";
 import { useParams, Link } from "react-router-dom";
 import Paginate from "../components/Paginate";
 import CarouselComponent from "../components/CarouselComponent";
+import Meta from '../components/Meta'
 
 const HomeScreen = () => {
   const { pageNumber, keyword } = useParams();
@@ -24,6 +25,7 @@ const HomeScreen = () => {
         </Message>
       ) : (
         <>
+        <Meta />
           <h1>Latest Products</h1>
           {!keyword ? (
             <CarouselComponent />
@@ -32,7 +34,7 @@ const HomeScreen = () => {
               Back
             </Link>
           )}
-
+          
           <Row>
             {data.products.map((product) => {
               return (

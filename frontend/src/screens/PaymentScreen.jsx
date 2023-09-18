@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { savePaymentMethod } from "../slices/cartSlice";
 import CheckoutSteps from "../components/CheckoutSteps";
 import { useEffect, useState } from "react";
+import Meta from '../components/Meta'
+
 
 function PaymentScreen() {
   const [paymentMethod, setPaymentMethod] = useState("CBE");
@@ -27,6 +29,7 @@ function PaymentScreen() {
   };
   return (
     <FormContainer>
+      <Meta title="Configure-payment"/>
       <CheckoutSteps step1 step2 step3 />
       <h1>Payment Method</h1>
       <Form onSubmit={handleSubmit}>

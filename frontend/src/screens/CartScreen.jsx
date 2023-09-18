@@ -11,6 +11,7 @@ import {
 } from "react-bootstrap";
 import { FaTrash } from "react-icons/fa";
 import Message from "../components/Message";
+import Meta from '../components/Meta'
 import { addToCart, removeFromCart } from "../slices/cartSlice";
 
 const CartScreen = () => {
@@ -104,6 +105,7 @@ const CartScreen = () => {
           </ListGroup>
         </Card>
       </Col>
+      <Meta title='Cart'/>
     </Row>
   );
 };
