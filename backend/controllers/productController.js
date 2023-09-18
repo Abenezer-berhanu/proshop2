@@ -76,7 +76,7 @@ export const addReview = asyncHandler(async (req, res) => {
 
   const product = await Product.findById(id);
   if (product) {
-    const alreadyReviewed = Product.reviews.find(
+    const alreadyReviewed = product.reviews.find(
       (review) => review.user.toString() === req.user._id.toString()
     );
     if (alreadyReviewed) {
@@ -92,7 +92,7 @@ export const addReview = asyncHandler(async (req, res) => {
     };
 
     product.reviews.push(review);
-    product.numReviews = product.review.length;
+    product.numReviews = product.reviews.length;
 
     product.rating =
       product.reviews.reduce((acc, review) => acc + review.rating, 0) /
