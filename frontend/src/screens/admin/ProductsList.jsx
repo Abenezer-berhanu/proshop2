@@ -2,6 +2,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button, Col, Row } from "react-bootstrap";
 import { FiTrash, FiEdit } from "react-icons/fi";
 import { toast } from "react-toastify";
+import Paginate from "../../components/Paginate";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import {
@@ -9,9 +10,13 @@ import {
   useCreateProductMutation,
   useDeleteProductMutation,
 } from "../../slices/productsSlice";
+import { useParams } from "react-router-dom";
 
 function ProductsList() {
-  const { data: products, isLoading, error, refetch } = useGetProductsQuery();
+  const { pageNumber } = useParams();
+  const { data, isLoading, error, refetch } = useGetProductsQuery({
+    pageNumber,
+  });
   const [createProduct, { isLoading: createLoading, error: createError }] =
     useCreateProductMutation();
 
@@ -60,46 +65,47 @@ function ProductsList() {
       ) : error ? (
         <Message>{error}</Message>
       ) : (
-        <Table striped hover responsive className="table-sm">
-          <thead>
-            <tr>
-              <td>ID</td>
-              <td>NAME</td>
-              <td>PRICE</td>
-              <td>CATEGORY</td>
-              <td>BRAND</td>
-              <td></td>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((product) => (
-              <tr key={product._id}>
-                <td>{product._id}</td>
-                <td>{product.name}</td>
-                <td>{product.price}</td>
-                <td>{product.category}</td>
-                <td>{product.brand}</td>
-                <td>
-                  <LinkContainer to={`/admin/product/${product._id}/edit`}>
-                    <Button variant="" className="btn-sm mx-2" title="edit">
-                      {" "}
-                      <FiEdit style={{ color: "black" }} />
-                    </Button>
-                  </LinkContainer>
-                  <Button
-                    variant=""
-                    className="btn-sm mx-2"
-                    title="delete"
-                    onClick={() => handleDeleteProduct(product._id)}
-                  >
-                    {" "}
-                    <FiTrash style={{ color: "red" }} />
-                  </Button>
-                </td>
+        <>
+          <Table striped hover responsive className="table-sm">
+            <thead>
+              <tr>
+                <td>ID</td>
+                <td>NAME</td>
+                <td>PRICE</td>
+                <td>CATEGORY</td>
+                <td>BRAND</td>
+                <td></td>
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {data.products.map((product) => (
+                <tr key={product._id}>
+                  <td>{product._id}</td>
+                  <td>{product.name}</td>
+                  <td>{product.price}</td>
+                  <td>{product.category}</td>
+                  <td>{product.brand}</td>
+                  <td>
+                    <LinkContainer to={`/admin/product/${product._id}/edit`}>
+                      <Button variant="" className="btn-sm mx-2" title="edit">
+                        <FiEdit style={{ color: "black" }} />
+                      </Button>
+                    </LinkContainer>
+                    <Button
+                      variant=""
+                      className="btn-sm mx-2"
+                      title="delete"
+                      onClick={() => handleDeleteProduct(product._id)}
+                    >
+                      <FiTrash style={{ color: "red" }} />
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+          <Paginate page={data.page} pages={data.pages} isAdmin={true} />
+        </>
       )}
     </>
   );
