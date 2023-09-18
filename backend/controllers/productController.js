@@ -4,8 +4,15 @@ import Product from "../model/productModel.js";
 import path from "path";
 
 export const getAllProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({});
-  res.status(200).json(products);
+  const pageNumber = 2;
+  const page = Number(req.query.pageNumber) || 1;
+  const count = await Product.countDocuments();
+  const products = await Product.find({})
+    .limit(pageNumber)
+    .skip(pageNumber * (page - 1));
+  res
+    .status(200)
+    .json({ products, page, pages: Math.ceil(count / pageNumber) });
 });
 
 export const createProduct = asyncHandler(async (req, res) => {
