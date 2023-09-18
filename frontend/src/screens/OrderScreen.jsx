@@ -8,6 +8,8 @@ import { useCreateOrderMutation } from "../slices/orderApiSlice";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { toast } from "react-toastify";
+import Meta from '../components/Meta'
+
 
 const OrderScreen = () => {
   const cart = useSelector((state) => state.cart);
@@ -42,6 +44,7 @@ const OrderScreen = () => {
   };
   return (
     <>
+    <Meta title='Order-product'/>
       <CheckoutSteps step1 step2 step3 step4 />
       <Row>
         <Col md={8}>

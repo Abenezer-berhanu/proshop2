@@ -4,6 +4,7 @@ import Rating from "../components/Rating";
 import Message from "../components/Message";
 import { toast } from "react-toastify";
 import { addToCart } from "../slices/cartSlice";
+import Meta from "../components/Meta";
 import {
   Card,
   Row,
@@ -78,6 +79,7 @@ const ProductsScreen = () => {
         </Message>
       ) : (
         <div>
+          <Meta title={product.product.name} />
           <Row>
             <Col md={5}>
               <Image
