@@ -29,7 +29,6 @@ const CartScreen = () => {
   const handleCheckOut = () => {
     navigate('/login?redirect=/shipping')
   }
-
   const { cartItems } = cart;
   return (
     <Row style={{ margin: "10px" }}>

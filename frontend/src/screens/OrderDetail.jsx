@@ -11,13 +11,16 @@ import { useSelector } from "react-redux";
 
 export default function OrderDetail() {
   const { id: orderId } = useParams();
-  const { data: order, isLoading, error, refetch } = useGetOrderDetailQuery(orderId);
+  const {
+    data: order,
+    isLoading,
+    error,
+    refetch,
+  } = useGetOrderDetailQuery(orderId);
   const { userInfo } = useSelector((state) => state.auth);
 
-  const [
-    deliverOrder,
-    { isLoading: isLoadingDelivery, error: errorDelivery },
-  ] = useDeliverOrderMutation();
+  const [deliverOrder, { isLoading: isLoadingDelivery, error: errorDelivery }] =
+    useDeliverOrderMutation();
 
   const handlePay = () => {
     toast.warn("payment method is on maintenance");
@@ -29,7 +32,11 @@ export default function OrderDetail() {
       refetch();
       toast.success("Order Delivered");
     } catch (error) {
-      toast.error(errorDelivery?.data?.message || errorDelivery.message || errorDelivery.error);
+      toast.error(
+        errorDelivery?.data?.message ||
+          errorDelivery.message ||
+          errorDelivery.error
+      );
     }
   };
 
@@ -129,15 +136,17 @@ export default function OrderDetail() {
                 {userInfo && !userInfo.isAdmin ? (
                   <Button
                     variant="primary"
-                    disabled={order.paymentMethod === "PayPal" ? false : true}
+                    disabled={order.paymentMethod === "CBE" ? false : true}
                     onClick={handlePay}
                   >
                     Pay
                   </Button>
                 ) : (
                   <>
-                  {isLoadingDelivery && <Loader />}
-                  <Button onClick={handleOrderDeliver}>Mark As Deliverd</Button>
+                    {isLoadingDelivery && <Loader />}
+                    <Button onClick={handleOrderDeliver}>
+                      Mark As Delivered
+                    </Button>
                   </>
                 )}
                 <p>

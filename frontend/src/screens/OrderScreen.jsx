@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useCreateOrderMutation } from "../slices/orderApiSlice";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
+import { toast } from "react-toastify";
 
 const OrderScreen = () => {
   const cart = useSelector((state) => state.cart);
@@ -33,9 +34,10 @@ const OrderScreen = () => {
         totalPrice: cart.totalPrice,
       }).unwrap();
       dispatch(setOrder());
+      toast.success("Order Placed");
       navigate(`/orders/${res._id}`);
     } catch (error) {
-      console.log("error");
+      toast.error(error?.data?.message || error.message || error.error);
     }
   };
   return (

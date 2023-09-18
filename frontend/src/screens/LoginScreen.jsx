@@ -37,8 +37,7 @@ function LoginScreen() {
       toast.success("Logged in successfully");
       navigate(redirect);
     } catch (error) {
-      console.log(error);
-      toast.error(error?.data?.message || error.error);
+      toast.error(error?.data?.message || error.message || error.error);
     }
   };
 
