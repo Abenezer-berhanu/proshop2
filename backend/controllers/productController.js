@@ -69,3 +69,39 @@ export const getProductById = asyncHandler(async (req, res) => {
     throw new Error("Resource not Found");
   }
 });
+
+export const addReview = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { rating, comment } = req.body;
+
+  const product = await Product.findById(id);
+  if (product) {
+    const alreadyReviewed = Product.reviews.find(
+      (review) => review.user.toString() === req.user._id.toString()
+    );
+    if (alreadyReviewed) {
+      res.status(400);
+      throw new Error("Product already reviewed");
+    }
+
+    const review = {
+      name: req.user.name,
+      rating: Number(rating),
+      comment,
+      user: req.user._id,
+    };
+
+    product.reviews.push(review);
+    product.numReviews = product.review.length;
+
+    product.rating =
+      product.reviews.reduce((acc, review) => acc + review.rating, 0) /
+      product.reviews.length;
+
+    await product.save();
+    res.status(201).json({ message: "Review added" });
+  } else {
+    res.status(404);
+    throw new Error("Resource not found ");
+  }
+});
