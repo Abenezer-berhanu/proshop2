@@ -52,7 +52,9 @@ function OrderList() {
                   </td>
                   <td>
                     <LinkContainer to={`/orders/${order._id}`}>
-                      <Button variant="link" className="btn-sm">Detail</Button>
+                      <Button variant="link" className="btn-sm">
+                        Detail
+                      </Button>
                     </LinkContainer>
                   </td>
                 </tr>

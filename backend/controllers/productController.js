@@ -4,7 +4,7 @@ import Product from "../model/productModel.js";
 import path from "path";
 
 export const getAllProducts = asyncHandler(async (req, res) => {
-  const pageNumber = 8;
+  const pageNumber = process.env.PAGINATION_PAGE;
   const page = Number(req.query.pageNumber) || 1;
 
   const keyword = req.query.keyword
@@ -106,8 +106,8 @@ export const addReview = asyncHandler(async (req, res) => {
     product.numReviews = product.reviews.length;
 
     product.rating =
-    product.reviews.reduce((acc, review) => acc + review.rating, 0) /
-    product.reviews.length;
+      product.reviews.reduce((acc, review) => acc + review.rating, 0) /
+      product.reviews.length;
 
     await product.save();
     res.status(201).json({ message: "Review added" });
@@ -118,6 +118,6 @@ export const addReview = asyncHandler(async (req, res) => {
 });
 
 export const getTopProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({}).sort({rating : -1}).limit(3)
+  const products = await Product.find({}).sort({ rating: -1 }).limit(3);
   res.status(200).json(products);
 });
