@@ -1,28 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Col, Form, Row, Table } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { setCredntials } from "../slices/authSlice";
+import Message from "../components/Message";
 import Loader from "../components/Loader";
-import { useUpdateUserProfileMutation } from "../slices/userSliceApi";
+import {
+  useUpdateUserProfileMutation,
+  useGetUserProfileQuery,
+} from "../slices/userSliceApi";
+import { FiClock } from "react-icons/fi";
 
 function UserProfile() {
   const userInfo = useSelector((state) => state.auth.userInfo);
+  const {
+    data: userData,
+    isLoading: profileLoading,
+    error,
+  } = useGetUserProfileQuery({ userId: userInfo._id });
+  const dispatch = useDispatch();
   const [name, setName] = useState(userInfo.name);
   const [email, setEmail] = useState(userInfo.email);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [updateUser, { isLoading }] = useUpdateUserProfileMutation();
-  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       if (!(password === confirmPassword)) {
-        toast.warn("Password and confirm password is not same");
+        toast.warn("Password confirmation mistake");
       } else {
         if (window.confirm("Are you sure?")) {
-          const res = await updateUser({ name, password, password });
+          const res = await updateUser({ name, password, email });
           dispatch(setCredntials(res.data));
           toast.success("User Updated Successfully");
         }
@@ -78,18 +88,50 @@ function UserProfile() {
           <h2>
             <strong>My Orders</strong>
           </h2>
-          <Table striped hover responsive className="tale-sm">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>DATE</th>
-                <th>TOTAL</th>
-                <th>PAID</th>
-                <th>DELIVERED</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </Table>
+          {profileLoading ? (
+            <Loader />
+          ) : error ? (
+            <Message variant={"danger"}>{error}</Message>
+          ) : userData.orders.length === 0 ? (
+            <Message variant={"info"}>
+              Sorry you didn't order anything yet
+            </Message>
+          ) : (
+            <Table striped hover responsive className="tale-sm">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>DATE</th>
+                  <th>TOTAL</th>
+                  <th>PAID</th>
+                  <th>DELIVERED</th>
+                </tr>
+              </thead>
+              <tbody>
+                {userData.orders.map((order) => (
+                  <tr key={order._id}>
+                    <th>{order._id}</th>
+                    <th>{order.createdAt.substring(0, 10)}</th>
+                    <th>${order.totalPrice}</th>
+                    <td>
+                      {order.isPaid ? (
+                        order.isPaidAt.substring(0, 10)
+                      ) : (
+                        <FiClock style={{ color: "green" }} />
+                      )}
+                    </td>
+                    <td>
+                      {order.isDelivered ? (
+                        order.deliveredAt.substring(0, 10)
+                      ) : (
+                        <FiClock style={{ color: "green" }} />
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          )}
         </Col>
       </Row>
     </>

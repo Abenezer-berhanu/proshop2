@@ -38,27 +38,33 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ["User"],
     }),
     getUserDetail: builder.query({
-        query: (userId) => ({
-            url: `${USERS_URL}/${userId}`
-        }),
-        providesTags: ["User"]
+      query: (userId) => ({
+        url: `${USERS_URL}/${userId}`,
+      }),
+      providesTags: ["User"],
     }),
-    updateUser : builder.mutation({
-        query: (data) => ({
-            url: `${USERS_URL}/${data.userId}`,
-            method: 'PUT',
-            body: data
-        }),
-        invalidatesTags: ['User']
+    updateUser: builder.mutation({
+      query: (data) => ({
+        url: `${USERS_URL}/${data.userId}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["User"],
     }),
     updateUserProfile: builder.mutation({
       query: (data) => ({
         url: `${USERS_URL}/profile`,
-        method: 'PUT',
-        body: data
+        method: "PUT",
+        body: data,
       }),
-      invalidatesTags: ['User']
-    })
+      invalidatesTags: ["User"],
+    }),
+    getUserProfile: builder.query({
+      query: ({userId}) => ({
+        url: `${USERS_URL}/${userId}/profile`,
+      }),
+      providesTags: ["User"],
+    }),
   }),
 });
 
@@ -70,5 +76,6 @@ export const {
   useDeleteUserMutation,
   useGetUserDetailQuery,
   useUpdateUserMutation,
-  useUpdateUserProfileMutation
+  useUpdateUserProfileMutation,
+  useGetUserProfileQuery,
 } = usersApiSlice;

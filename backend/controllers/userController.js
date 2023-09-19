@@ -1,5 +1,6 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import User from "../model/userModel.js";
+import Order from '../model/orderModel.js'
 import generateToken from "../utils/generateToken.js";
 
 //login
@@ -68,6 +69,7 @@ const logoutUser = asyncHandler(async (req, res) => {
 //logout
 const getUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
+  const orders = await Order.find({user: req.params.userId}) 
 
   if (user) {
     res.status(200).json({
@@ -75,6 +77,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      orders
     });
   } else {
     res.status(404);
@@ -83,7 +86,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
 });
 
 //private
-//update user profle
+//update user profile
 const updateUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 

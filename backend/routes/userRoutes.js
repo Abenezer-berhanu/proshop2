@@ -17,7 +17,8 @@ const router = express.Router()
 router.route('/').get(protect, admin, getUsers).post(userSignup)
 router.post('/logout', logoutUser) // public
 router.post('/login', userSignin)// public
-router.route('/profile').get(protect, getUserProfile).put(protect, updateUserProfile)// private till login
+router.route('/profile').put(protect, updateUserProfile)// private till login
+router.route('/:userId/profile').get(protect, getUserProfile)
 router.route('/:id').delete(protect, admin, deleteUser).get(protect, admin, getUserById).put(protect, admin, updateUser)//private except admin
 
 export default router
