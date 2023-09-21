@@ -8,7 +8,7 @@ export const getAllProducts = asyncHandler(async (req, res) => {
   const page = Number(req.query.pageNumber) || 1;
 
   const keyword = req.query.keyword
-    ? { name: { $regex: req.query.keyword, $options: "i" } }
+    ? { name: { $regex: req.query.keyword, $options: "i" } }: req.query.category ? {category: { $regex: req.query.category, $options: "i" }}
     : {};
 
   const count = await Product.countDocuments({ ...keyword });

@@ -9,7 +9,7 @@ import Order from "./model/orderModel.js";
 
 dotenv.config();
 
-connectDB()
+connectDB();
 
 const importData = async () => {
   try {
@@ -36,3 +36,10 @@ const importData = async () => {
 };
 
 importData();
+
+function bekele(name, fatherName){
+  console.log(Boolean(name))
+}
+
+
+

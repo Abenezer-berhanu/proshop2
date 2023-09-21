@@ -43,6 +43,37 @@ table th {
   margin-top: 10px;
 }
 
+.carousel-container {
+  transform: scale(0.9);
+}
+
 .carousel-caption {
   background: rgba(0, 0, 0, 0.5);
+}
+
+.carousel-container img {
+  height: 60vh;
+  min-width: 50%;
+  object-position: contain;
+}
+.footer-image{
+  margin-right: 10px;
+  max-width: 30px;
+  min-width: 20px;
+}
+.footer-container * a{
+  text-decoration: none;
+}
+.comment-input{
+  border: 2px solid black;
+}
+.filter-drop-down{
+  display: flex;
+  justify-content: space-between;
+}
+.display-list{
+  display: block;
+}
+.hide-list{
+  display: none;
 }
