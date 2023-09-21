@@ -61,10 +61,10 @@ const [visibleClothe, setVisibleClothe] = useState(false);
           </i>
         </div>
         <div className={visibleLaptop ? "display-list" : "hide-list"} style={{ padding: '0 10px'}}>
-        <p><MdOutlineArrowRight /><Link to={'/'}>MacBook</Link></p>
-        <p><MdOutlineArrowRight /><Link to={'/'}>HP</Link></p>
-        <p><MdOutlineArrowRight /><Link to={'/'}>Lenovo</Link></p>
-        <p><MdOutlineArrowRight /><Link to={'/'} style={{ textDecoration: 'none'}}>All Laptops</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/category/electronics/laptop?name=apple'}>MacBook</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/category/electronics/laptop?name=hp'}>HP</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/category/electronics/laptop?name=lenovo'}>Lenovo</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/category/electronics?name=phone'} style={{ textDecoration: 'none'}}>All Laptops</Link></p>
         </div>
         </div>
         </div>
@@ -96,9 +96,9 @@ const [visibleClothe, setVisibleClothe] = useState(false);
             {visibleAccessory? <MdOutlineKeyboardArrowUp  onClick={() => setVisibleAccessory(!visibleAccessory)}/> : <MdKeyboardArrowDown onClick={() => setVisibleAccessory(!visibleAccessory)} />}
           </i>
         </div>
-        <p><MdOutlineArrowRight /><Link to={'/'}>Phone Accessory</Link></p>
-        <p><MdOutlineArrowRight /><Link to={'/'}>Laptop Accessory</Link></p>
-        <p><MdOutlineArrowRight /><Link to={'/'} style={{ textDecoration: 'none'}}>All Accessory</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/category/accessories/phone?name=accessories'}>Phone Accessory</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/category/accessories/laptop?name=accessories'}>Laptop Accessory</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/category/accessories?name=accessories'} style={{ textDecoration: 'none'}}>All Accessory</Link></p>
         <hr />
 
         {/* ////////////////////////////////////////////////////////// */}
@@ -168,7 +168,6 @@ const [visibleClothe, setVisibleClothe] = useState(false);
         </div>
         </div>
 
-        <p><MdOutlineArrowRight /><Link to={'/'} style={{ textDecoration: 'none'}}>All Electronics</Link></p>
         <p><MdOutlineArrowRight /><Link to={'/'} style={{ textDecoration: 'none'}}>Show Trend</Link></p>
         <p><MdOutlineArrowRight /><Link to={'/'} style={{ textDecoration: 'none'}}>Additional</Link></p>
         

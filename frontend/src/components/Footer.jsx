@@ -124,11 +124,16 @@ function Footer() {
           </Col>
           <Col className="text-center py-3" md={2}>
             <p>
-              <strong>HELP</strong>
+              <strong>FAQ</strong>
             </p>
             <p>
               <Link to="/" style={{ color: "black" }}>
                 Contact Us
+              </Link>
+            </p>
+            <p>
+              <Link to="/" style={{ color: "black" }}>
+                Help
               </Link>
             </p>
             <p>

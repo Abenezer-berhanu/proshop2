@@ -22,7 +22,9 @@ export const getAllProducts = asyncHandler(async (req, res) => {
         ],
       }
     : {};
-    
+
+    console.log(req.query)
+
   const count = await Product.countDocuments({ ...keyword });
   const products = await Product.find({ ...keyword })
     .limit(pageNumber)
@@ -43,7 +45,7 @@ export const createProduct = asyncHandler(async (req, res) => {
     countInStock: 0,
     numReviews: 0,
     description: "Sample description",
-  });
+  })
   const createProduct = await product.save();
   res.status(201).json(createProduct);
 });
