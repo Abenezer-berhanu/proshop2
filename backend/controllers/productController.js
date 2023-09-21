@@ -43,7 +43,7 @@ export const createProduct = asyncHandler(async (req, res) => {
     countInStock: 0,
     numReviews: 0,
     description: "Sample description",
-  })
+  });
   const createProduct = await product.save();
   res.status(201).json(createProduct);
 });
@@ -130,6 +130,6 @@ export const addReview = asyncHandler(async (req, res) => {
 });
 
 export const getTopProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({}).sort({ rating: -1 }).limit(3);
+  const products = await Product.find({}).sort({ rating: -1 }).limit(5);
   res.status(200).json(products);
 });

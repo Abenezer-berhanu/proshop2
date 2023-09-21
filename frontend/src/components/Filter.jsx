@@ -12,7 +12,7 @@ function Filter() {
 
   const [visibleAccessory, setVisibleAccessory] = useState(true);
 
-const [visibleClothe, setVisibleClothe] = useState(false);
+const [visibleClothe, setVisibleClothe] = useState(true);
   const [visibleMen, setVisibleMen] = useState(false);
   const [visibleWomen, setVisibleWomen] = useState(false);
   const [visibleChild, setVisibleChild] = useState(false);
@@ -128,10 +128,7 @@ const [visibleClothe, setVisibleClothe] = useState(false);
         </div>
         </div>
         
-
-
         <div className={visibleClothe ? "display-list" : "hide-list"} style={{ padding: '0 10px'}}>
-          
         <div>
         <div className="filter-drop-down">
           <p>Women's</p>
@@ -140,11 +137,11 @@ const [visibleClothe, setVisibleClothe] = useState(false);
           </i>
         </div>
         <div className={visibleWomen ? "display-list" : "hide-list"} style={{ padding: '0 10px'}}>
-        <p><MdOutlineArrowRight /><Link to={'/'}>Dresses</Link></p>
-        <p><MdOutlineArrowRight /><Link to={'/'}>Skirts</Link></p>
-        <p><MdOutlineArrowRight /><Link to={'/'}>Pants</Link></p>
-        <p><MdOutlineArrowRight /><Link to={'/'}>Shorts</Link></p>
-        <p><MdOutlineArrowRight /><Link to={'/'} style={{ textDecoration: 'none'}}>All Women's Clothing</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/category/clothings/women?name=dress'}>Dresses</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/category/clothings/women?name=shoes'}>shoes</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/category/clothings/women?name=pants'}>Pants</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/category/clothings/women?name=jacket'}>Jacket</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/category/clothings?name=women'} style={{ textDecoration: 'none'}}>All Women's Clothing</Link></p>
         </div>
         </div>
         </div>
