@@ -23,8 +23,6 @@ export const getAllProducts = asyncHandler(async (req, res) => {
       }
     : {};
 
-    console.log(req.query)
-
   const count = await Product.countDocuments({ ...keyword });
   const products = await Product.find({ ...keyword })
     .limit(pageNumber)

@@ -119,11 +119,11 @@ const [visibleClothe, setVisibleClothe] = useState(false);
           </i>
         </div>
         <div className={visibleMen ? "display-list" : "hide-list"} style={{ padding: '0 10px'}}>
-        <p><MdOutlineArrowRight /><Link to={'/'}>Pants</Link></p>
-        <p><MdOutlineArrowRight /><Link to={'/'}>Shirt</Link></p>
-        <p><MdOutlineArrowRight /><Link to={'/'}>Sweater</Link></p>
-        <p><MdOutlineArrowRight /><Link to={'/'}>Shoes</Link></p>
-        <p><MdOutlineArrowRight /><Link to={'/'} style={{ textDecoration: 'none'}}>All Men's Clothing</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/category/clothings/men?name=pants'}>Pants</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/category/clothings/men?name=shirt'}>Shirt</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/category/clothings/men?name=sweater'}>Sweater</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/category/clothings/men?name=shoes'}>Shoes</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/category/clothings?name=fashion'} style={{ textDecoration: 'none'}}>All Men's Clothing</Link></p>
         </div>
         </div>
         </div>
