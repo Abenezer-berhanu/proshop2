@@ -1,4 +1,4 @@
-import { Card } from "react-bootstrap";
+import { Card, ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Rating from "./Rating";
 
@@ -20,7 +20,7 @@ const Product = ({ product }) => {
             text={`${product.numReviews} reviews`}
           />
         </Card.Text>
-        <Card.Text as="h3">${product.price}</Card.Text>
+        <Card.Text as="h3">{product.price ? `$${product.price}` : <Card className="w-fit-content">show</Card>}</Card.Text>
       </Card.Body>
     </Card>
   );

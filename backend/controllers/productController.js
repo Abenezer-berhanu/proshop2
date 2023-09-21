@@ -68,15 +68,8 @@ export const updateProduct = asyncHandler(async (req, res) => {
 export const deleteProduct = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
   if (product) {
-    const image = product.image.split("\\")[1];
     await Product.deleteOne({ _id: product._id });
-    fs.unlink(path.resolve() + "/uploads/" + image, function (err) {
-      if (err) {
-        throw new Error("Image has not deleted");
-      } else {
-        res.status(200).json({ message: "Product deleted" });
-      }
-    });
+    res.status(200).json({ message: "Product deleted" });
   } else {
     res.status(404);
     throw new Error("Resource Not Found");

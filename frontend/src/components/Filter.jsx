@@ -146,7 +146,6 @@ const [visibleClothe, setVisibleClothe] = useState(true);
         </div>
         </div>
 
-
         <div className={visibleClothe ? "display-list" : "hide-list"} style={{ padding: '0 10px'}}>
           
         <div>
@@ -157,15 +156,12 @@ const [visibleClothe, setVisibleClothe] = useState(true);
           </i>
         </div>
         <div className={visibleChild ? "display-list" : "hide-list"} style={{ padding: '0 10px'}}>
-        <p><MdOutlineArrowRight /><Link to={'/'}>Dresses</Link></p>
-        <p><MdOutlineArrowRight /><Link to={'/'}>Pants</Link></p>
-        <p><MdOutlineArrowRight /><Link to={'/'}>shirts</Link></p>
-        <p><MdOutlineArrowRight /><Link to={'/'} style={{ textDecoration: 'none'}}>All Children Clothing</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/category/clothings?name=children'} style={{ textDecoration: 'none'}}>Clothing</Link></p>
         </div>
         </div>
         </div>
 
-        <p><MdOutlineArrowRight /><Link to={'/'} style={{ textDecoration: 'none'}}>Show Trend</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/fashion?trend=fashion and design'} style={{ textDecoration: 'none'}}>Fashion gallery</Link></p>
         <p><MdOutlineArrowRight /><Link to={'/'} style={{ textDecoration: 'none'}}>Additional</Link></p>
         
         <hr />
