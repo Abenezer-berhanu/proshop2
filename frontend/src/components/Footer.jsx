@@ -46,9 +46,8 @@ function Footer() {
       });
   };
   const searchElectronics = () => {
-    
-    console.log(searchParams.get('q'))
-  }
+    console.log(searchParams.get("q"));
+  };
   return (
     <footer
       style={{ backgroundColor: "#F2F2F2", color: "black", paddingTop: "15px" }}
@@ -66,10 +65,7 @@ function Footer() {
             <ListGroup variant="flush">
               <ListGroup.Item className="bg-light">
                 <Link
-                  to="javascript:void(0)"
-                  onClick={() =>
-                    (window.location = "mailto:abenuberhanu271@gmail.com")
-                  }
+                  to="mailto:abenuberhanu271@gmail.com"
                   className="d-flex align-items-center justify-content-center text-black gap-1"
                 >
                   <AiFillMail /> Mail
@@ -94,14 +90,13 @@ function Footer() {
             </ListGroup>
           </Col>
 
-
           <Col className="text-center py-3" md={2}>
             <p>
               <strong>SHOP</strong>
             </p>
             <p>
               <Link
-                to='/search/category/electronics'
+                to="/search/category/electronics"
                 onClick={searchElectronics}
                 style={{ color: "black" }}
               >
@@ -109,18 +104,20 @@ function Footer() {
               </Link>
             </p>
             <p>
-              <Link 
-              to='/search/category/accessory'
-              onClick={searchElectronics}
-              style={{ color: "black" }}>
+              <Link
+                to="/search/category/accessory"
+                onClick={searchElectronics}
+                style={{ color: "black" }}
+              >
                 Accessory
               </Link>
             </p>
             <p>
-              <Link 
-              to='/search/category/clothes'
-              onClick={searchElectronics}
-              style={{ color: "black" }}>
+              <Link
+                to="/search/category/clothes"
+                onClick={searchElectronics}
+                style={{ color: "black" }}
+              >
                 Clothes
               </Link>
             </p>

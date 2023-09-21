@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { MdKeyboardArrowDown,MdOutlineKeyboardArrowUp,MdOutlineArrowRight, MdOutlineFilterList } from "react-icons/md";
 
 
@@ -16,6 +16,7 @@ const [visibleClothe, setVisibleClothe] = useState(false);
   const [visibleMen, setVisibleMen] = useState(false);
   const [visibleWomen, setVisibleWomen] = useState(false);
   const [visibleChild, setVisibleChild] = useState(false);
+
 
   return (
     <>
@@ -40,10 +41,10 @@ const [visibleClothe, setVisibleClothe] = useState(false);
           </i>
         </div>
         <div className={visiblePhone ? "display-list" : "hide-list"} style={{ padding: '0 10px'}}>
-        <p><MdOutlineArrowRight /><Link to={'/'}>Samsung</Link></p>
-        <p><MdOutlineArrowRight /><Link to={'/'}>Iphone</Link></p>
-        <p><MdOutlineArrowRight /><Link to={'/'}>Huawei</Link></p>
-        <p><MdOutlineArrowRight /><Link to={'/'} style={{ textDecoration: 'none'}}>All Phone</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/category/electronics/phone?name=samsung'}>Samsung</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/category/electronics/phone?name=apple'}>Iphone</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/category/electronics/phone?name=huawei'}>Huawei</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/category/electronics?name=phone'} style={{ textDecoration: 'none'}}>All Phone</Link></p>
         </div>
         </div>
         </div>
@@ -68,25 +69,6 @@ const [visibleClothe, setVisibleClothe] = useState(false);
         </div>
         </div>
 
-
-        <div className={visibleElectronics ? "display-list" : "hide-list"} style={{ padding: '0 10px'}}>
-          
-        <div>
-        <div className="filter-drop-down">
-          <p>Television / Tv</p>
-          <i>
-            {visibleTv? <MdOutlineKeyboardArrowUp  onClick={() => setVisibleTv(!visibleTv)}/> : <MdKeyboardArrowDown onClick={() => setVisibleTv(!visibleTv)} />}
-          </i>
-        </div>
-        <div className={visibleTv ? "display-list" : "hide-list"} style={{ padding: '0 10px'}}>
-        <p><MdOutlineArrowRight /><Link to={'/'}>Samsung</Link></p>
-        <p><MdOutlineArrowRight /><Link to={'/'}>Sony</Link></p>
-        <p><MdOutlineArrowRight /><Link to={'/'}>LG</Link></p>
-        <p><MdOutlineArrowRight /><Link to={'/'} style={{ textDecoration: 'none'}}>All Tv</Link></p>
-        </div>
-        </div>
-        </div>
-
         <div className={visibleElectronics ? "display-list" : "hide-list"} style={{ padding: '0 10px'}}>
           
         <div>
@@ -97,13 +79,13 @@ const [visibleClothe, setVisibleClothe] = useState(false);
           </i>
         </div>
         <div className={visibleCamera ? "display-list" : "hide-list"} style={{ padding: '0 10px'}}>
-        <p><MdOutlineArrowRight /><Link to={'/'}>Canon</Link></p>
-        <p><MdOutlineArrowRight /><Link to={'/'}>Sony</Link></p>
-        <p><MdOutlineArrowRight /><Link to={'/'}>Nikon</Link></p>
-        <p><MdOutlineArrowRight /><Link to={'/'} style={{ textDecoration: 'none'}}>All Camera</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/category/electronics/camera?name=cannon'}>Cannon</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/category/electronics/camera?name=sony'}>Sony</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/category/electronics/camera?name=nikon'}>Nikon</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/category/electronics?name=camera'} style={{ textDecoration: 'none'}}>All Camera</Link></p>
         </div>
         </div>
-        <p><MdOutlineArrowRight /><Link to={'/'} style={{ textDecoration: 'none'}}>All Electronics</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search?category=electronics'} style={{ textDecoration: 'none'}}>All Electronics</Link></p>
         </div>
         <hr />
         {/* //////////////////////////////////////////////////////////////////// */}

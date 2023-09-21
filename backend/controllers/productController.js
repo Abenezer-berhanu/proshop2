@@ -8,9 +8,21 @@ export const getAllProducts = asyncHandler(async (req, res) => {
   const page = Number(req.query.pageNumber) || 1;
 
   const keyword = req.query.keyword
-    ? { name: { $regex: req.query.keyword, $options: "i" } }: req.query.category ? {category: { $regex: req.query.category, $options: "i" }}
+    ? { name: { $regex: req.query.keyword, $options: "i" } }
+    : req.query.category
+    ? { category: { $regex: req.query.category, $options: "i" } }
+    : req.query.queryName && !req.query.filterName
+    ? { name: { $regex: req.query.queryName, $options: "i" } }
+    : req.query.categoryParam && req.query.filterName
+    ? {
+        $and: [
+          { category: { $regex: req.query.categoryParam, $options: "i" } },
+          { brand: { $regex: req.query.queryName, $options: "i" } },
+          { name: { $regex: req.query.filterName, $options: "i" } },
+        ],
+      }
     : {};
-
+    
   const count = await Product.countDocuments({ ...keyword });
   const products = await Product.find({ ...keyword })
     .limit(pageNumber)

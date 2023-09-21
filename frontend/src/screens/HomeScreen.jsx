@@ -8,13 +8,21 @@ import Paginate from "../components/Paginate";
 import CarouselComponent from "../components/CarouselComponent";
 import Filter from "../components/Filter";
 import Meta from "../components/Meta";
-
+import { useSearchParams } from "react-router-dom";
 const HomeScreen = () => {
-  const { pageNumber, keyword, category } = useParams();
+  const { pageNumber, keyword, categoryParam, filterName} = useParams();
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  let queryName = searchParams.get('name') || ''
+  let queryCategory = searchParams.get('category') || ''
+
   const { data, isLoading, error } = useGetProductsQuery({
     keyword,
+    filterName,
+    categoryParam,
     pageNumber,
-    category,
+    queryCategory,
+    queryName
   });
 
 
@@ -30,7 +38,7 @@ const HomeScreen = () => {
         <>
           <Meta />
           <h1>Latest Products</h1>
-          {!keyword || !category ? (
+          {!keyword || !queryCategory || !queryName ? (
             <CarouselComponent />
           ) : (
             <Link className="btn btn-light mb-4" to="/">
@@ -39,7 +47,7 @@ const HomeScreen = () => {
           )}
           {data?.products.length === 0 ? (
             <Message variant={"info"}>
-              sorry No {keyword || category} has found
+              sorry No {keyword || queryCategory || queryName} has found
             </Message>
           ) : (
             <Row>
