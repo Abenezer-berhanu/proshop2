@@ -1,13 +1,27 @@
 import fs from "fs";
 import asyncHandler from "../middleware/asyncHandler.js";
+import Fashion from '../model/fashionTrend.js'
 import Product from "../model/productModel.js";
 import path from "path";
+import { count } from "console";
 
 export const getAllProducts = asyncHandler(async (req, res) => {
   const pageNumber = process.env.PAGINATION_PAGE;
   const page = Number(req.query.pageNumber) || 1;
 
-  const keyword = req.query.keyword
+  if(req.query.queryFashion){
+    const countFashion = await Fashion.countDocuments({})
+    const fashionImages = await Fashion.find()
+    .limit(pageNumber)
+    .skip(pageNumber * (page - 1))
+    if(fashionImages){
+      res.status(200).json({fashionImages, page, pages: Math.ceil(countFashion / pageNumber)})
+    }else{
+      res.status(404)
+      throw new Error('Resource Not Found')
+    }
+  }else{
+    const keyword = req.query.keyword
     ? { name: { $regex: req.query.keyword, $options: "i" } }
     : req.query.category
     ? { category: { $regex: req.query.category, $options: "i" } }
@@ -26,10 +40,12 @@ export const getAllProducts = asyncHandler(async (req, res) => {
   const count = await Product.countDocuments({ ...keyword });
   const products = await Product.find({ ...keyword })
     .limit(pageNumber)
+    .sort({ createAt: -1 })
     .skip(pageNumber * (page - 1));
   res
     .status(200)
     .json({ products, page, pages: Math.ceil(count / pageNumber) });
+  }
 });
 
 export const createProduct = asyncHandler(async (req, res) => {

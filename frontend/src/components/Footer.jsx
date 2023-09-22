@@ -23,7 +23,6 @@ function Footer() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
-  const [searchParams, setSearchParams] = useSearchParams();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -44,9 +43,6 @@ function Footer() {
       .catch((err) => {
         toast.error(err?.text);
       });
-  };
-  const searchElectronics = () => {
-    console.log(searchParams.get("q"));
   };
   return (
     <footer
@@ -97,7 +93,6 @@ function Footer() {
             <p>
               <Link
                 to="/search/category/electronics"
-                onClick={searchElectronics}
                 style={{ color: "black" }}
               >
                 Electronics
@@ -105,8 +100,7 @@ function Footer() {
             </p>
             <p>
               <Link
-                to="/search/category/accessory"
-                onClick={searchElectronics}
+                to="/search/category/accessories?name=accessories"
                 style={{ color: "black" }}
               >
                 Accessory
@@ -114,11 +108,10 @@ function Footer() {
             </p>
             <p>
               <Link
-                to="/search/category/clothes"
-                onClick={searchElectronics}
+                to="/search/category/clothings?name=women"
                 style={{ color: "black" }}
               >
-                Clothes
+                Women Clothing
               </Link>
             </p>
           </Col>

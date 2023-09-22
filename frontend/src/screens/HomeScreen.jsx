@@ -1,20 +1,20 @@
-import { Row, Col} from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import Product from "../components/Product";
 import Loader from "../components/Loader";
 import { useGetProductsQuery } from "../slices/productsSlice";
 import Message from "../components/Message";
-import { useParams, Link} from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Paginate from "../components/Paginate";
 import CarouselComponent from "../components/CarouselComponent";
 import Filter from "../components/Filter";
 import Meta from "../components/Meta";
 import { useSearchParams } from "react-router-dom";
 const HomeScreen = () => {
-  const { pageNumber, keyword, categoryParam, filterName} = useParams();
-  const [searchParams, setSearchParams] = useSearchParams()
+  const { pageNumber, keyword, categoryParam, filterName } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  let queryName = searchParams.get('name') || ''
-  let queryCategory = searchParams.get('category') || ''
+  let queryName = searchParams.get("name") || "";
+  let queryCategory = searchParams.get("category") || "";
 
   const { data, isLoading, error } = useGetProductsQuery({
     keyword,
@@ -22,9 +22,8 @@ const HomeScreen = () => {
     categoryParam,
     pageNumber,
     queryCategory,
-    queryName
+    queryName,
   });
-
 
   return (
     <div style={{ margin: "20px 0" }}>
@@ -45,7 +44,7 @@ const HomeScreen = () => {
               Back
             </Link>
           )}
-          {data?.products.length === 0 ? (
+          {data?.length === 0 ? (
             <Message variant={"info"}>
               sorry No {keyword || queryCategory || queryName} has found
             </Message>
@@ -67,7 +66,6 @@ const HomeScreen = () => {
               </Col>
             </Row>
           )}
-
           <Paginate page={data.page} pages={data.pages} keyword={keyword} />
         </>
       )}

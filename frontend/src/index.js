@@ -33,6 +33,7 @@ import UserList from "./screens/admin/UserList";
 import AdminRoutes from "./components/AdminRoute";
 import OrderList from "./screens/admin/OrderList";
 import ProductsList from "./screens/admin/ProductsList";
+import Gallery from "./components/Gallary";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -40,6 +41,7 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<HomeScreen />} />
       <Route path="/page/:pageNumber" element={<HomeScreen />} />
       <Route path="/search/:keyword" element={<HomeScreen />} />
+      <Route path="/search/gallery/:pageNumber/fashion" element={<Gallery />} />
       <Route path="/search/category/:category" element={<HomeScreen />} />
       <Route path="/search/" element={<HomeScreen />} />
       <Route path="/search/category/:categoryParam/:filterName" element={<HomeScreen />} />

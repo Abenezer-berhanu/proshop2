@@ -7,7 +7,6 @@ function Filter() {
   const [visibleElectronics, setVisibleElectronics] = useState(true);
   const [visiblePhone, setVisiblePhone] = useState(false);
   const [visibleLaptop, setVisibleLaptop] = useState(false);
-  const [visibleTv, setVisibleTv] = useState(false);
   const [visibleCamera, setVisibleCamera] = useState(false);
 
   const [visibleAccessory, setVisibleAccessory] = useState(true);
@@ -161,7 +160,7 @@ const [visibleClothe, setVisibleClothe] = useState(true);
         </div>
         </div>
 
-        <p><MdOutlineArrowRight /><Link to={'/search/fashion?trend=fashion and design'} style={{ textDecoration: 'none'}}>Fashion gallery</Link></p>
+        <p><MdOutlineArrowRight /><Link to={'/search/gallery/1/fashion?trend=fashion and design'} style={{ textDecoration: 'none'}}>Fashion gallery</Link></p>
         <p><MdOutlineArrowRight /><Link to={'/'} style={{ textDecoration: 'none'}}>Additional</Link></p>
         
         <hr />

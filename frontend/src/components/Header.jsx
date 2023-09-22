@@ -34,11 +34,20 @@ export default function Header() {
             <Navbar.Brand>ስሙኒShop</Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav " />
+          
           <Navbar.Collapse id="basic-navbar-nav">
             <SearchBox />
+            
             <Nav className="ms-auto">
+            <Nav.Link>
+                <strong>Phone</strong>
+              </Nav.Link>
+              <Nav.Link>
+                <strong>Laptop</strong>
+              </Nav.Link>
               {userInfo && (
                 <LinkContainer to="/cart">
+                  
                   <Nav.Link>
                     <FaShoppingCart /> Cart
                     {cartItems.length > 0 && (
@@ -53,6 +62,7 @@ export default function Header() {
                   </Nav.Link>
                 </LinkContainer>
               )}
+              
               {userInfo ? (
                 <NavDropdown title={`${userInfo.name}/${userInfo.email}`} id="username">
                   <LinkContainer to="/profile">

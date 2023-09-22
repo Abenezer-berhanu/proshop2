@@ -1,12 +1,12 @@
-import { Card, ListGroup } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Rating from "./Rating";
 
 const Product = ({ product }) => {
   return (
-    <Card className="my-3 p-3 rounded">
+    <Card className="my-3 pb-3 rounded">
       <Link to={`/product/${product._id}`}>
-        <Card.Img src={product.image} variant="top" />
+        <Card.Img src={product.image} variant="top" height={"200px"} />
       </Link>
       <Card.Body>
         <Link to={`/product/${product._id}`}>
@@ -20,7 +20,15 @@ const Product = ({ product }) => {
             text={`${product.numReviews} reviews`}
           />
         </Card.Text>
-        <Card.Text as="h3">{product.price ? `$${product.price}` : <Card className="w-fit-content">show</Card>}</Card.Text>
+        <Card.Text as="h6">
+          <strong style={{ color: "black" }}>
+            {product.price ? (
+              `$${product.price}`
+            ) : (
+              <Card className="w-fit-content">show</Card>
+            )}
+          </strong>
+        </Card.Text>
       </Card.Body>
     </Card>
   );
