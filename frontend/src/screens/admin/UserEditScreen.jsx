@@ -23,7 +23,8 @@ export default function ProductEditScreen() {
     error,
     refetch,
   } = useGetUserDetailQuery(userId);
-  const [updateUser, { isLoading: loadingUpdate }] = useUpdateUserMutation();
+  const [updateUser, { isLoading: loadingUpdate}] = useUpdateUserMutation();
+
 
   useEffect(() => {
     if (user) {

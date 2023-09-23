@@ -70,6 +70,7 @@ function Footer() {
               <ListGroup.Item className="bg-light">
                 <Link
                   to="https://www.linkedin.com/in/abenezer-berhanu/"
+                  target="_blank"
                   className="d-flex align-items-center justify-content-center text-black gap-1"
                 >
                   <FaLinkedin /> Linkedin
@@ -77,7 +78,8 @@ function Footer() {
               </ListGroup.Item>
               <ListGroup.Item className="bg-light">
                 <Link
-                  to="/"
+                  to="https://www.facebook.com/profile.php?id=100083687514137"
+                  target="_blank"
                   className="d-flex align-items-center justify-content-center text-black gap-1"
                 >
                   <FaFacebook /> Facebook

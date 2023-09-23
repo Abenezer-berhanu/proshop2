@@ -5,10 +5,10 @@ import FormContainer from "../../components/FormContainer";
 import { Form, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import Message from "../../components/Message";
+
 import {
   useUpdateProductMutation,
   useGetProductDetailQuery,
-  useUploadImageMutation,
 } from "../../slices/productsSlice";
 
 export default function ProductEditScreen() {
@@ -27,11 +27,13 @@ export default function ProductEditScreen() {
     isLoading,
     error,
   } = useGetProductDetailQuery(productId);
-  const [updateProduct, { isLoading: loadingUpdate}] =
+  const [updateProduct, { isLoading: loadingUpdate }] =
     useUpdateProductMutation();
 
-  const [uploadImage, ] =
-    useUploadImageMutation();
+  const uploadImage = (e) => {
+    const file = e.target.files[0];
+    fileChanger(file);
+  };
 
   useEffect(() => {
     if (product) {
@@ -47,7 +49,7 @@ export default function ProductEditScreen() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const updatedProduct = {
+    const modifiedProduct = {
       productId,
       name,
       price,
@@ -57,26 +59,27 @@ export default function ProductEditScreen() {
       countInStock,
       description,
     };
-    const result = await updateProduct(updatedProduct);
+    const result = await updateProduct(modifiedProduct);
     if (result.error) {
-      toast.error(result.error);
+      toast.error(result.error.data.message);
     } else {
       toast.success("Product updated");
       navigate("/admin/productList");
     }
   };
 
-  const uploadFileHandler = async (e) => {
-    const formData = new FormData();
-    formData.append("image", e.target.files[0]);
-    try {
-      const res = await uploadImage(formData).unwrap();
-      toast.success(res.message);
-      setImage(res.image);
-    } catch (error) {
-      toast.error(error?.data?.message || error.error);
+  const fileChanger = (file) => {
+    const reader = new FileReader();
+    if (file) {
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setImage(reader.result);
+      };
+    } else {
+      toast.error("image has not uploaded");
     }
   };
+
   return (
     <>
       <Link to="/admin/productList" className="btn btn-light my-3">
@@ -110,19 +113,13 @@ export default function ProductEditScreen() {
                 onChange={(e) => setPrice(e.target.value)}
               />
             </Form.Group>
-            {/* IMAGE PLACEHOLDER */}
             <Form.Group controlId="image" className="my-2">
               <Form.Label>Image</Form.Label>
               <Form.Control
-                type="text"
-                placeholder="Enter Image Url"
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-              />
-              <Form.Control
                 type="file"
+                accept="image/"
                 label="choose file"
-                onChange={uploadFileHandler}
+                onChange={uploadImage}
               />
             </Form.Group>
             <Form.Group controlId="brand">

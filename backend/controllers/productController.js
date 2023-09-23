@@ -1,7 +1,8 @@
 import fs from "fs";
 import asyncHandler from "../middleware/asyncHandler.js";
-import Fashion from '../model/fashionTrend.js'
+import Fashion from "../model/fashionTrend.js";
 import Product from "../model/productModel.js";
+import cloudinary from "../utils/cloudinary.js";
 import path from "path";
 import { count } from "console";
 
@@ -9,42 +10,45 @@ export const getAllProducts = asyncHandler(async (req, res) => {
   const pageNumber = process.env.PAGINATION_PAGE;
   const page = Number(req.query.pageNumber) || 1;
 
-  if(req.query.queryFashion){
-    const countFashion = await Fashion.countDocuments({})
+  if (req.query.queryFashion) {
+    const countFashion = await Fashion.countDocuments({});
     const fashionImages = await Fashion.find()
-    .limit(pageNumber)
-    .skip(pageNumber * (page - 1))
-    if(fashionImages){
-      res.status(200).json({fashionImages, page, pages: Math.ceil(countFashion / pageNumber)})
-    }else{
-      res.status(404)
-      throw new Error('Resource Not Found')
+      .limit(pageNumber)
+      .skip(pageNumber * (page - 1));
+    if (fashionImages) {
+      res.status(200).json({
+        fashionImages,
+        page,
+        pages: Math.ceil(countFashion / pageNumber),
+      });
+    } else {
+      res.status(404);
+      throw new Error("Resource Not Found");
     }
-  }else{
+  } else {
     const keyword = req.query.keyword
-    ? { name: { $regex: req.query.keyword, $options: "i" } }
-    : req.query.category
-    ? { category: { $regex: req.query.category, $options: "i" } }
-    : req.query.queryName && !req.query.filterName
-    ? { name: { $regex: req.query.queryName, $options: "i" } }
-    : req.query.categoryParam && req.query.filterName
-    ? {
-        $and: [
-          { category: { $regex: req.query.categoryParam, $options: "i" } },
-          { brand: { $regex: req.query.queryName, $options: "i" } },
-          { name: { $regex: req.query.filterName, $options: "i" } },
-        ],
-      }
-    : {};
+      ? { name: { $regex: req.query.keyword, $options: "i" } }
+      : req.query.category
+      ? { category: { $regex: req.query.category, $options: "i" } }
+      : req.query.queryName && !req.query.filterName
+      ? { name: { $regex: req.query.queryName, $options: "i" } }
+      : req.query.categoryParam && req.query.filterName
+      ? {
+          $and: [
+            { category: { $regex: req.query.categoryParam, $options: "i" } },
+            { brand: { $regex: req.query.queryName, $options: "i" } },
+            { name: { $regex: req.query.filterName, $options: "i" } },
+          ],
+        }
+      : {};
 
-  const count = await Product.countDocuments({ ...keyword });
-  const products = await Product.find({ ...keyword })
-    .limit(pageNumber)
-    .sort({ createAt: -1 })
-    .skip(pageNumber * (page - 1));
-  res
-    .status(200)
-    .json({ products, page, pages: Math.ceil(count / pageNumber) });
+    const count = await Product.countDocuments({ ...keyword });
+    const products = await Product.find({ ...keyword })
+      .limit(pageNumber)
+      .skip(pageNumber * (page - 1));
+    res
+      .status(200)
+      .json({ products, page, pages: Math.ceil(count / pageNumber) });
   }
 });
 
@@ -67,17 +71,25 @@ export const createProduct = asyncHandler(async (req, res) => {
 export const updateProduct = asyncHandler(async (req, res) => {
   const { name, price, image, brand, category, countInStock, description } =
     req.body;
-  const product = await Product.findById(req.params.id);
-  if (product) {
-    product.name = name;
-    product.price = price;
-    product.image = image;
-    product.brand = brand;
-    product.category = category;
-    product.countInStock = countInStock;
-    product.description = description;
-    const updatedProduct = await product.save();
-    res.status(200).json(createProduct);
+  console.log(req.body);
+  if (image) {
+    const uploadRes = await cloudinary.uploader.upload(image, {
+      upload_preset: "proshop",
+    });
+    if (uploadRes) {
+      const product = await Product.findById(req.params.id);
+      if (product) {
+        product.name = name;
+        product.price = price;
+        product.image = uploadRes.secure_url;
+        product.brand = brand;
+        product.category = category;
+        product.countInStock = countInStock;
+        product.description = description;
+        const updatedProduct = await product.save();
+        res.status(200).json(updatedProduct);
+      }
+    }
   }
 });
 
