@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Form} from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
+import { AiOutlineSearch } from "react-icons/ai";
 
 function SearchBox() {
   const [keyword, setKeyword] = useState("");
@@ -16,9 +17,13 @@ function SearchBox() {
   };
   return (
     <>
-      <Form onSubmit={handleSubmit} className="d-flex gap-2 m-auto">
+      <Form
+        onSubmit={handleSubmit}
+        style={{ width: "50%", position: "relative" }}
+      >
         <Form.Group>
           <Form.Control
+            style={{ width: "100%", borderRadius: "0 30px 30px 0" }}
             type="text"
             value={keyword}
             name="q"
@@ -27,8 +32,13 @@ function SearchBox() {
             onChange={(e) => setKeyword(e.target.value)}
           />
         </Form.Group>
-        <Button variant="outline-light" type="submit">
-          Search
+
+        <Button
+          variant=""
+          type="submit"
+          style={{ position: "absolute", right: 0, top: 0 }}
+        >
+          <AiOutlineSearch size={20} />
         </Button>
       </Form>
     </>

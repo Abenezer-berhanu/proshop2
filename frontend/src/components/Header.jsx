@@ -28,18 +28,22 @@ export default function Header() {
 
   return (
     <header>
-      <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
+      <Navbar
+        style={{ backgroundColor: "#f2f2f2" }}
+        expand="lg"
+        collapseOnSelect
+      >
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>ስሙኒShop</Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav " />
-          
+
           <Navbar.Collapse id="basic-navbar-nav">
             <SearchBox />
-            
+
             <Nav className="ms-auto">
-            <Nav.Link>
+              <Nav.Link>
                 <strong>Phone</strong>
               </Nav.Link>
               <Nav.Link>
@@ -47,9 +51,8 @@ export default function Header() {
               </Nav.Link>
               {userInfo && (
                 <LinkContainer to="/cart">
-                  
                   <Nav.Link>
-                    <FaShoppingCart /> Cart
+                    <FaShoppingCart size={20} />
                     {cartItems.length > 0 && (
                       <Badge pill bg="danger" style={{ marginLeft: "5px" }}>
                         {cartItems.length > 9
@@ -62,9 +65,9 @@ export default function Header() {
                   </Nav.Link>
                 </LinkContainer>
               )}
-              
+
               {userInfo ? (
-                <NavDropdown title={`${userInfo.name}/${userInfo.email}`} id="username">
+                <NavDropdown title={`${userInfo.email}`} id="username">
                   <LinkContainer to="/profile">
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>

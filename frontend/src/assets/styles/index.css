@@ -54,7 +54,7 @@ table th {
 .carousel-container img {
   height: 60vh;
   min-width: 50%;
-  object-position: contain;
+  object-fit: cover;
 }
 .footer-image{
   margin-right: 10px;
